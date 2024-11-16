@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>근육 운동 가이드</title>
+    <style>
+        /* 기본 레이아웃 */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 20px;
+            background: linear-gradient(to bottom, #f0f4f8, #d9e2ec); /* 부드러운 그라디언트 배경 */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 효과 */
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+        }
+
+        .muscle-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px; /* 모서리를 둥글게 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(30, 144, 255, 0.8); /* 반투명 파란색 */
+            border-radius: 50%; /* 원 모양 */
+            cursor: pointer;
+            border: 2px solid white; /* 테두리로 강조 */
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s, background 0.2s; /* 호버 애니메이션 */
+        }
+
+        .hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.2); /* 호버 시 확대 */
+            background: rgba(30, 144, 255, 1); /* 불투명 파란색 */
+        }
+
+        .description-box {
+            margin-left: 40px; /* 이미지와 설명 박스 간격 */
+            width: 350px;
+            padding: 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: white; /* 하얀 배경 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+            transition: transform 0.2s ease-in-out; /* 클릭 시 애니메이션 */
+        }
+
+        .description-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* 제목 그림자 */
+        }
+
+        .description-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #34495e;
+        }
+
+        .description-box:hover {
+            transform: scale(1.02); /* 박스에 호버 시 약간 확대 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 이미지 컨테이너 -->
+    <div class="container">
+        <img src="muscle.jpg" alt="근육 지도" class="muscle-image">
+
+        <!-- 핫스팟 추가 -->
+        <div class="hotspot shoulder" data-title="어깨" data-info="밀리터리 프레스나 측면 레이즈를 추천합니다." style="top: 19.7%; left: 37.6%;"></div>
+        <div class="hotspot biceps" data-title="이두근" data-info="덤벨 컬이나 바벨 컬 운동을 하세요." style="top: 30.7%; left: 26.8%;"></div>
+        <div class="hotspot triceps" data-title="삼두근" data-info="삼두 딥스나 오버헤드 익스텐션을 해보세요." style="top: 29.7%; left: 75.1%;"></div>
+        <div class="hotspot back" data-title="등" data-info="풀업이나 바벨 로우 운동을 추천합니다." style="top: 32.8%; left: 63.2%;"></div>
+        <div class="hotspot chest" data-title="가슴" data-info="벤치프레스나 푸쉬업을 추천합니다." style="top: 27.0%; left: 38.8%;"></div>
+        <div class="hotspot quads" data-title="앞허벅지" data-info="스쿼트와 런지로 대퇴사두근을 강화하세요." style="top: 57.1%; left: 32.8%;"></div>
+        <div class="hotspot hamstrings" data-title="뒷허벅지" data-info="데드리프트나 레그 컬을 추천합니다." style="top: 57.8%; left: 65.5%;"></div>
+        <div class="hotspot calves" data-title="종아리" data-info="카프 레이즈로 종아리 근육을 단련하세요." style="top: 76.0%; left: 65.8%;"></div>
+    </div>
+
+    <!-- 설명 텍스트 박스 -->
+    <div class="description-box" id="descriptionBox">
+        <h2>근육 부위를 선택하세요</h2>
+        <p>이미지 위의 파란색 원에 마우스를 올리거나 클릭하면 해당 근육 부위와 운동 방법이 여기에 표시됩니다.</p>
+    </div>
+
+    <script>
+        const hotspots = document.querySelectorAll('.hotspot');
+        const descriptionBox = document.getElementById('descriptionBox');
+
+        hotspots.forEach(hotspot => {
+            // 마우스를 올렸을 때 설명 표시
+            hotspot.addEventListener('mouseenter', () => {
+                const title = hotspot.getAttribute('data-title');
+                const info = hotspot.getAttribute('data-info');
+                descriptionBox.innerHTML = `<h2>${title}</h2><p>${info}</p>`; // 제목과 설명 업데이트
+            });
+
+            // 마우스를 벗어났을 때 기본 메시지 복원
+            hotspot.addEventListener('mouseleave', () => {
+                descriptionBox.innerHTML = `
+                    <h2>근육 부위를 선택하세요</h2>
+                    <p>이미지 위의 파란색 원에 마우스를 올리거나 클릭하면 해당 근육 부위와 운동 방법이 여기에 표시됩니다.</p>`;
+            });
+        });
+    </script>
+</body>
+</html>
